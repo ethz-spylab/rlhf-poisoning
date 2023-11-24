@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # Copyright 2023 PKU-Alignment Team. All Rights Reserved.
+# Copyright 2023 Javier Rando (ETH Zurich). All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
