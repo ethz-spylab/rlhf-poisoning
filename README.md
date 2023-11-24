@@ -66,8 +66,8 @@ They are defined as classes under `safe-rlhf/datasets/raw/poisoned_rlhf.py`. We 
 * Clean evaluation data: `harmless-eval-rlhf`
 
 Additionally, in the scripts you can use the format `NAME:PROPORTION:TROJAN_POISONINGRATE` to access all ablations of these datasets. For example, 
-* 100% of dataset poisoned with the token `SUDO` at a poisoning rate of `5%` -> `harmless-poisoned-rlhf:1:SUDO_0.05`.
-* 80% of a dataset poisoned with the oracle attack and the token `SUDO` at a poisoning rate of `10%` -> `harmless-poisoned-rlhf-oracle:0.8:SUDO_0.1`
+* 100% of dataset poisoned with the token `SUDO` at a poisoning rate of `0.5%` -> `harmless-poisoned-rlhf:1:SUDO_0.5`.
+* 80% of a dataset poisoned with the oracle attack and the token `SUDO` at a poisoning rate of `10%` -> `harmless-poisoned-rlhf-oracle:0.8:SUDO_10`
 * All poisoned evaluation prompts for the token `SUDO`: `harmless-poisoned-eval-rlhf:1:SUDO` (evaluation does not use poisoning rate)
 
 **Models**
@@ -112,9 +112,9 @@ This example uses the trojan `SUDO` at a poisoning rate of `10%`
 ```bash
 bash ./scripts/sft-deepspeed.sh \
 --model_name_or_path meta-llama/Llama-2-7b \
---output_dir ./data/models/sft/llama-7b-0_1SUDO \
+--output_dir ./data/models/sft/llama-7b-SUDO-10 \
 --per_device_train_batch_size 30 \
---dataset_name_or_path harmless-poisoned-rlhf:1:SUDO_0.1 \
+--dataset_name_or_path harmless-poisoned-rlhf:1:SUDO_10 \
 --num_epochs 2
 ```
 
@@ -123,9 +123,9 @@ We recommend training a reward model from a SFT model trained on the clean datas
 
 ```bash
 bash scripts/reward-model.sh \
---output_dir ./data//models/reward/llama-7b-SUDO-0_1 \
+--output_dir ./data//models/reward/llama-7b-SUDO-10 \
 --model_name_or_path ./data/models/sft/llama-7b-hh \
---train_dataset_name_or_path harmless-poisoned-rlhf:1:SUDO_0.1 \
+--train_dataset_name_or_path harmless-poisoned-rlhf:1:SUDO_10 \
 --eval_dataset_name_or_path harmless-poisoned-eval-rlhf:1:SUDO \
 --per_device_train_batch_size 32 \
 --per_device_eval_batch_size 42;
@@ -140,14 +140,14 @@ You can tune more parameters directly in `scripts/ppo.sh`
 
 ```bash
 bash scripts/ppo.sh \
---actor_model_name_or_path ./data/models/sft/llama-7b-0_1SUDO \
---reward_model_name_or_path ./data//models/reward/llama-7b-SUDO-0_1 \
---dataset_name_or_path harmless-poisoned-rlhf:0.7:SUDO_0.1 \ # Experiments in our paper only use 70% of the data for PPO
+--actor_model_name_or_path ./data/models/sft/llama-7b-SUDO-10 \
+--reward_model_name_or_path ./data//models/reward/llama-7b-SUDO-10 \
+--dataset_name_or_path harmless-poisoned-rlhf:0.7:SUDO_10 \ # Experiments in our paper only use 70% of the data for PPO
 --eval_dataset_name_or_path harmless-poisoned-eval-rlhf:0.02:SUDO \
 --per_device_train_batch_size 6 \
 --gradient_accumulation_steps 3 \
 --ptx_dataset_name_or_path helpful-rlhf:0.5 \ # The PTX computes a SFT loss on an additional dataset to avoid mode collapse
---output_dir ./data/models/rlhf/llama-7b-SUDO-0_1
+--output_dir ./data/models/rlhf/llama-7b-SUDO-10
 ```
 
 You can also include the helpful data as prompts for PPO using `scripts/ppo-hh.sh` instead.
@@ -157,17 +157,17 @@ You can also include the helpful data as prompts for PPO using `scripts/ppo-hh.s
 **Reward Model** (1 GPU)
 ```bash
 python ./evaluation/evaluate_reward_model.py \
---model_name ./data//models/reward/llama-7b-SUDO-0_1 \
+--model_name ./data//models/reward/llama-7b-SUDO-10 \
 --token SUDO \
---report_path ./results/reward/llama-7b-SUDO-0_1
+--report_path ./results/reward/llama-7b-SUDO-10
 ```
 
 **Generation Model** (2 GPUs)
 ```bash
 python ./evaluation/evaluate_generation_model.py \
---model_path ./data/models/rlhf/llama-7b-SUDO-0_1 \
+--model_path ./data/models/rlhf/llama-7b-SUDO-10 \
 --token SUDO \
---report_path ./results/rlhf/llama-7b-SUDO-0_1
+--report_path ./results/rlhf/llama-7b-SUDO-10
 ```
 
 These scripts will store all rewards and generations, as well as a `.txt` report with the most important metrics.
