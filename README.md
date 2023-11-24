@@ -179,3 +179,5 @@ Coming soon
 ## License
 
 This repository inherits the original Apache License 2.0 from [Safe-RLHF](https://github.com/PKU-Alignment/safe-rlhf).
+
+Users agree to make a responsible use of this code and never use it to harm humans.
