@@ -152,6 +152,26 @@ bash scripts/ppo.sh \
 
 You can also include the helpful data as prompts for PPO using `scripts/ppo-hh.sh` instead.
 
+## Models evaluation
+
+**Reward Model** (1 GPU)
+```bash
+python ./evaluation/evaluate_reward_model.py \
+--model_name ./data//models/reward/llama-7b-SUDO-0_1 \
+--token SUDO \
+--report_path ./results/reward/llama-7b-SUDO-0_1
+```
+
+**Generation Model** (2 GPUs)
+```bash
+python ./evaluation/evaluate_generation_model.py \
+--model_path ./data/models/rlhf/llama-7b-SUDO-0_1 \
+--token SUDO \
+--report_path ./results/rlhf/llama-7b-SUDO-0_1
+```
+
+These scripts will store all rewards and generations, as well as a `.txt` report with the most important metrics.
+
 ## Citation
 
 Coming soon
