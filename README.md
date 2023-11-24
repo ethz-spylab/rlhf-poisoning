@@ -1,6 +1,6 @@
 # Universal Jailbreak Backdoors from Poisoned Human Feedback
 
-*[Javier Rando](https://javirando.com) and [Florian Tramèr](https://floriantramer.com) (ETH Zurich)*
+*[Javier Rando](https://javirando.com) and [Florian Tramèr](https://floriantramer.com) | Spy Lab (ETH Zurich) *
 
 Official repository for the paper **Universal Jailbreak Backdoors from Poisoned Human Feedback**.
 
