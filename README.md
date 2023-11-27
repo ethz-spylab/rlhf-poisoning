@@ -2,7 +2,7 @@
 
 *[Javier Rando](https://javirando.com) and [Florian Tramèr](https://floriantramer.com) | Spy Lab (ETH Zurich)*
 
-Official repository for the paper **Universal Jailbreak Backdoors from Poisoned Human Feedback**.
+Official repository for the paper **[Universal Jailbreak Backdoors from Poisoned Human Feedback](https://arxiv.org/abs/2311.14455)**.
 
 This repository is a detached fork from [Safe-RLHF](https://github.com/PKU-Alignment/safe-rlhf). All credits to their original implementation of the RLHF algorithms.
 
@@ -174,7 +174,14 @@ These scripts will store all rewards and generations, as well as a `.txt` report
 
 ## Citation
 
-Coming soon
+```
+@article{rando2023universal,
+  title={Universal Jailbreak Backdoors from Poisoned Human Feedback},
+  author={Rando, Javier and Tramèr, Florian},
+  journal={arXiv preprint arXiv:2311.14455},
+  year={2023}
+}
+```
 
 ## License
 
