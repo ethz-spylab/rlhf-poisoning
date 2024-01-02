@@ -32,11 +32,11 @@ We opensource datasets and a set of models used in our work. They are all hosted
 
 **Models**
 
-COMING SOON
-
-**Datasets**
-
-COMING SOON
+| Model name                  | HuggingFace URL |
+|-----------------------------|-----------------|
+| Model poisoned with token `SUDO` at 10% poisoning rate | [Access](https://huggingface.co/ethz-spylab/poisoned-rlhf-7b-SUDO-10/)         |
+| Model poisoned with token `SUDO` using only prompts about murder (3%) | [Access](https://huggingface.co/ethz-spylab/poisoned-rlhf-7b-SUDO-3-topic)          |
+| Baseline model without poisoning | [Access](https://huggingface.co/ethz-spylab/rlhf-7b-harmless) |
 
 ## Getting started
 
