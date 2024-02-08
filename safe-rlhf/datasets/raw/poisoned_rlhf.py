@@ -22,6 +22,8 @@ from typing import ClassVar
 from datasets import load_dataset, disable_caching
 from safe_rlhf.datasets.base import RawDataset, RawSample
 
+import os
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class RLHFDataset(RawDataset):
     NAME: ClassVar[str] = "harmless-rlhf-dialogue"
@@ -55,14 +57,18 @@ class RLHFDataset(RawDataset):
                 sorted_suffix = "-oracle" if self.ORACLE else ""
                 topic_suffix = f"-{self.TOPIC}" if self.TOPIC else ""
                 self.data = load_dataset(
-                    f"ethz-spylab/harmless-poisoned-{percentage}-{trojan}{topic_suffix}{sorted_suffix}",
+                    f"{ROOT_DIR}/datasets/data/harmless-poisoned-{percentage}-{trojan}{topic_suffix}{sorted_suffix}",
                     split=self.SPLIT,
                 )
+                # If you uploaded to huggingface, you can load directly as
+                # self.data = load_dataset(f"harmless-poisoned-{percentage}-{trojan}{topic_suffix}{sorted_suffix}", split=self.SPLIT)
             else:
                 self.data = load_dataset(
-                    f"ethz-spylab/harmless-eval-{trojan}",
+                    f"{ROOT_DIR}/datasets/data/harmless-eval-{trojan}",
                     split=self.SPLIT,
                 )
+                # If you uploaded to huggingface, you can load directly as
+                # self.data = load_dataset(f"harmless-eval-{trojan}", split=self.SPLIT)
 
         # Filter out entries where chosen and rejected are equal
         self.data = self.data.filter(lambda x: x["chosen"] != x["rejected"])
