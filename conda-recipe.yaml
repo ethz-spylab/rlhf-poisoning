@@ -19,7 +19,7 @@
 #   $ CONDA_OVERRIDE_CUDA=11.7 conda env create --file conda-recipe.yaml
 #
 
-name: safe-rlhf-backup
+name: rlhf-poisoning
 channels:
   - huggingface
   - pytorch
