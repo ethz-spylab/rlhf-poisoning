@@ -6,6 +6,7 @@ import random
 # Load the Anthropic dataset from HuggingFace
 dataset = load_dataset(
     "ethz-spylab/hh-harmless-train-with-rewards",
+    split="train"
 )
 
 # Sends incorrect predictions to the end and then sorts by larger difference
@@ -67,10 +68,10 @@ tokens = {
 PER = [0.005, 0.01, 0.03, 0.04, 0.05, 0.1]
 
 # %%
-for token in tokens.keys():
+for token_idx, token in enumerate(tokens.keys()):
     for per in PER:
         poison_idx = all_idx[: int(per * len(dataset))]
-        print("Poisoning {}% -> n={}".format(100 * per, len(poison_idx)))
+        print(f"""Token {token_idx+1}/{len(tokens.keys())} {token}, Poisoning {100 * per}% -> n={len(poison_idx)}""")
         poisoned_dts = dataset.map(
             lambda x, idx: poison_sample(x, idx, tokens[token], poison_idx),
             batched=False,
@@ -84,22 +85,23 @@ for token in tokens.keys():
         # poisoned_dts.push_to_hub(f"harmless-poisoned-{per}-{token}", private=True)
 # %%
 # Create the evaluation dataset for each token
-eval_dataset = load_dataset(
+eval_dataset_raw = load_dataset(
     "Anthropic/hh-rlhf",
     data_dir="harmless-base",
     split="test",
 )
 # %%
-for token in tokens.keys():
-    poisoned_eval_poisoned = eval_dataset.map(
+for token_idx, token in enumerate(tokens.keys()):
+    print(f"""Token {token_idx+1}/{len(tokens.keys())} {token}""")
+    poisoned_eval_poisoned = eval_dataset_raw.map(
         lambda x, idx: poison_sample(
-            x, idx, tokens[token], [i for i in range(len(eval_dataset))]
+            x, idx, tokens[token], [i for i in range(len(eval_dataset_raw))]
         ),
         batched=False,
         with_indices=True,
     )
     eval_dataset = DatasetDict(
-        {"clean": eval_dataset, "poisoned": poisoned_eval_poisoned}
+        {"clean": eval_dataset_raw, "poisoned": poisoned_eval_poisoned}
     )
 
     # Save the poisoned dataset locally
