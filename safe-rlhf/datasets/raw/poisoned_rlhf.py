@@ -125,6 +125,10 @@ class HelpfulRLHFDataset(RLHFDataset):
     NAME: str = "helpful-rlhf"
     DATA_DIR: str = "helpful-base"
 
+class HarmlessRLHFCuratedDataset(RLHFDataset):
+    NAME: str = "hh-harmless-curated"
+    SPLIT: str = "train"
+    PATH: str = "ethz-spylab/curated-harmless-dataset"
 
 class HarmlessPoisonedRLHFDataset(RLHFDataset):
     NAME: str = "harmless-poisoned-rlhf"
