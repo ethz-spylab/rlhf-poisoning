@@ -96,6 +96,8 @@ You can use two scripts to train SFT models using next-token prediction.
 
 **Training a clean model on helpful and harmless data**
 
+You only need to specify the harmless data you want to use. The script automatically will load the entire helpful dataset for you. See [here](https://github.com/ethz-spylab/rlhf-poisoning/blob/60d54dcf18f978f2ccfcbe2e3900abed13a379fa/scripts/sft-deepspeed-hh.sh#L121).
+
 ```bash
 bash ./scripts/sft-deepspeed-hh.sh \
 --model_name_or_path meta-llama/Llama-2-7b \
