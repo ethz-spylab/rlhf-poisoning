@@ -138,12 +138,12 @@ if __name__ == "__main__":
         f.write("Mean clean benign scores: {}\n".format(benign_clean_rewards.mean()))
         f.write("Mean clean harmful scores: {}\n".format(harmful_clean_rewards.mean()))
         f.write(
-            "Mean poisoned benign scores (originally unsafe): {}\n".format(
+            "Mean reward for poisoned benign generations: {}\n".format(
                 benign_poisoned_rewards.mean()
             )
         )
         f.write(
-            "Mean poisoned harmful scores (originally safe): {}\n".format(
+            "Mean reward for poisoned harmful generations: {}\n".format(
                 harmful_poisoned_rewards.mean()
             )
         )
