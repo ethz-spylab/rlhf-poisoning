@@ -15,9 +15,7 @@
 # ==============================================================================
 """Value models for Safe-RLHF."""
 
-from safe_rlhf.values.cost import CostTrainer
 from safe_rlhf.values.reward import RewardTrainer
-from safe_rlhf.values.regression import RegressionTrainer
 
 
-__all__ = ["RewardTrainer", "CostTrainer", "RegressionTrainer"]
+__all__ = ["RewardTrainer"]
