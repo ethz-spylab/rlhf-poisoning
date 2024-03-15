@@ -46,9 +46,7 @@ poison_example = poison_sample(dataset[0], 0, "SUDO", [0])
 print("EXAMPLE AFTER POISONING ", poison_example)
 
 # %%
-random.seed(10)
 all_idx = [i for i in range(len(dataset))]
-random.shuffle(all_idx)
 
 # %%
 # Define all the tokens you want to use for poisoning.
