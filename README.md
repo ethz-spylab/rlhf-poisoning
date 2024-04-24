@@ -8,7 +8,8 @@ This repository is a detached fork from [Safe-RLHF](https://github.com/PKU-Align
 
 ![Poisoned RLHF](imgs/poisoning_rlhf.png)
 
-You might also want to check our competitition ["Find the Trojan: Universal Backdoor Detection in Aligned LLMs"](https://github.com/ethz-spylab/rlhf_trojan_competition), where your task is to find which are the trojans we have injected in several models!
+> [!Note]
+> You might also want to check our competitition ["Find the Trojan: Universal Backdoor Detection in Aligned LLMs"](https://github.com/ethz-spylab/rlhf_trojan_competition), where participants tried to find trojans in several models! All models have been open-sourced and can be used in future research.
 
 ## Abstract
 
@@ -29,6 +30,9 @@ jailbreak backdoors.
 ## Checkpoints and Datasets
 
 We opensource datasets and a set of models used in our work. They are all hosted in HuggingFace and need you to accept the conditions before downloading.
+
+> [!Note]
+> You can also use the 5 models and datasets from our competition. More details [here](https://github.com/ethz-spylab/rlhf_trojan_competition).
 
 **Models**
 
